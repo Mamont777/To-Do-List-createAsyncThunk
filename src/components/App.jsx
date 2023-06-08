@@ -1,16 +1,27 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTasks } from '../redux/operations.js';
+import { Layout } from './Layout/Layout.js';
+import { TaskForm } from './TaskForm/TaskForm.js';
+import { AppBar } from './AppBar/AppBar.js';
+import { TaskList } from './TaskList/TaskList.js';
+import { getError, getIsLoading } from 'redux/selectors.js';
+
 export const App = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
+
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, [dispatch]);
+
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <Layout>
+      <AppBar />
+      <TaskForm />
+      {isLoading && !error && <b>Request in progress...</b>}
+      <TaskList />
+    </Layout>
   );
 };
