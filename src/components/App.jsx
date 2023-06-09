@@ -5,12 +5,12 @@ import { Layout } from './Layout/Layout.js';
 import { TaskForm } from './TaskForm/TaskForm.js';
 import { AppBar } from './AppBar/AppBar.js';
 import { TaskList } from './TaskList/TaskList.js';
-import { getError, getIsLoading } from 'redux/selectors.js';
+import { selectError, selectIsLoading } from 'redux/selectors.js';
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchTasks());
